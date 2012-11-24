@@ -101,6 +101,7 @@ body a {
 
 #calendar .noday {
 	background-color: gray;
+	opacity: .5;
 }
 
 #calendar .too-1 {

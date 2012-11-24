@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>toorno: Asignador de turnos de trabajo. Registro</title>
+	<title>Mis datos de usuario</title>
 	<link rel="stylesheet" type="text/css" href="/css/main.css" />
 </head>
 
+
 <body>
 
-<div class="card">
-	<h1>Formulario de registro</h1>
-	<form method="post">
+
+<div id="toolbar">
+<div id="tb-user">{{user}}
+	<ul id="tb-menu">
+		<li><a href="/logout">Cerrar sesión</a></li>
+		<li><a href="/profile">Mis datos</a></li>
+		<li><a href="/calendar/">Mi calendario</a></li>
+	</ul>
+</div>
+</div>
+
+
+<form method="post">
 		<table>
 			<tr>
 				<td><label for="username">Usuario</label></td>
-				<td><input id="username" name="username" value={{username}}></td>
+				<td><input id="username"name="username" value={{username}}></td>
 				<td><span class="error">{{user_error}}</span></td>
 			</tr><tr>
 				<td><label for ="password">Contraseña</label></td>
@@ -28,14 +39,22 @@
 				<td><input id="email" type="email" name="email" value={{email}}></td>
 				<td><span class="error">{{email_error}}</td>
 			</tr><tr>
+				<td><label for="name">Nombre</label></td>
+				<td><input id="name" name="name"></td>
+				<td><span class="error">{{name_error}}</span></td>
+			</tr><tr>
+				<td><label for="surname">Apellidos</label></td>
+				<td><input id="surname" name="surname"></td>
+				<td><span class="error">{{surname_error}}</span></td>
+			</tr><tr>
 				<td></td><td><div class="error">{{error}}</div></td><td></td>
 			</tr><tr>
-				<td></td><td><input type="submit" value="Me apunto"></td><td></td>
+				<td></td><td><input type="submit" value="Actualizar"></td><td></td>
 			</tr>
 		</table>
-
 	</form>
-	<p>¿Ya tienes cuenta? <a href="/login">Inicia sesión aquí</a></p>
-</div>
+
+
+
 </body>
 </html>

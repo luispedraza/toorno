@@ -37,7 +37,7 @@ class UserSignup(UserAccount):
 		return PASS_RE.match(password)
 
 	def valid_email(self, email):
-		return EMAIL_RE.match(email) or not email
+		return EMAIL_RE.match(email)
 
 	def write_form(self, user_error=False, pass_error=False, match_error=False, email_error=False,
 						username="", email="", error=""):
@@ -46,13 +46,13 @@ class UserSignup(UserAccount):
 		merror=""
 		eerror=""
 		if user_error:
-			uerror="That's not a valid username."
+			uerror=u"Nombre de usuario no válido"
 		if pass_error:
-			perror="That wasn't a valid password."
+			perror=u"Contraseña de usuario no válida"
 		if match_error:
-			merror="Your passwords didn't match."
+			merror=u"Las contraseñas no coinciden"
 		if email_error:
-			eerror="That's not a valid email."
+			eerror=u"Dirección de correo no válida"
 		self.render("signup.html", 
 			user_error= uerror,
 			pass_error=perror,
@@ -78,7 +78,7 @@ class UserSignup(UserAccount):
 			self.write_form(uerror, perror, verror, eerror, username, email)
 		else:
 			if User.by_username(username):
-				self.write_form(error="User already exists")
+				self.write_form(error=u"El usuario ya existe. Utiliza otro nombre.")
 			else:
 				u = User.register(username, password, email)
 				u.put()
@@ -99,7 +99,7 @@ class UserLogin(UserAccount):
 			self.set_secure_cookie("user_id", str(u.key().id()))
 			self.redirect("/calendar")
 		else:
-			self.write_form("No válido")
+			self.write_form(u"No válido")
 
 class UserLogout(UserAccount):
 	def get(self):

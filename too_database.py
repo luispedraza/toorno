@@ -39,7 +39,7 @@ def valid_pw(name, pw, h):
 class User(db.Model):
 	username = db.StringProperty(required=True)
 	pwhash = db.StringProperty(required=True)
-	email = db.StringProperty()
+	email = db.StringProperty(required=True)
 
 	@classmethod
 	def by_id(cls, uid):
