@@ -15,8 +15,10 @@ body {
 	background-color: green;
 	color: white;
 	width: 600px;
+	overflow: hidden;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 100px;
 }
 
 .error {
@@ -26,6 +28,16 @@ body {
 body a {
 	color: orange;
 }
+
+#profile-control {
+	width: 180px;
+	float: left;
+}
+
+#profile-data {
+	width: 420px;
+	float: right;}
+
 
 /* Barra de herramientas */
 #toolbar {

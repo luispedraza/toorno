@@ -40,6 +40,9 @@ class User(db.Model):
 	username = db.StringProperty(required=True)
 	pwhash = db.StringProperty(required=True)
 	email = db.StringProperty(required=True)
+	name = db.StringProperty()
+	surname = db.StringProperty()
+	avatar = db.BlobProperty()
 
 	@classmethod
 	def by_id(cls, uid):
@@ -50,7 +53,7 @@ class User(db.Model):
 		return User.all().filter("username =", username).get()
 
 	@classmethod
-	def register(cls, username, pw, email=None):
+	def register(cls, username, pw, email):
 		pwhash = make_pw_hash(username, pw)
 		return User(username=username, pwhash=pwhash, email=email)
 

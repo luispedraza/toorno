@@ -29,20 +29,6 @@ class MainPage(BaseHandler):
 	def get(self):
 		self.render("main.html")
 
-
-class UserProfile(UserAccount):
-	def get(self):
-		if self.user:
-			username = self.user.username
-			email = self.user.email
-			self.render("profile.html", 
-				user=username, 
-				email=email)
-		else:
-			self.redirect("/")
-	def post(self):
-		self.render("profile.html")
-
 class Calendar(UserAccount):
 	def get(self):
 		if self.user:
@@ -50,7 +36,7 @@ class Calendar(UserAccount):
 			username = self.user.username
 			self.render("calendar.html", user=username, calendar=calendar)
 		else:
-			self.redirect("/")
+			self.redirect("/login")
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
@@ -58,5 +44,6 @@ app = webapp2.WSGIApplication([
     ('/login/?', UserLogin),
     ('/logout/?', UserLogout),
     ('/calendar/?', Calendar),
-    ('/profile/?', UserProfile)
+    ('/profile/?', UserProfile),
+    ('/avatar.jpg', UserAvatar)
 ], debug=True)

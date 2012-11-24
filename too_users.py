@@ -3,10 +3,21 @@
 import re
 from too_database import *
 from too_base import *
+from google.appengine.api import images
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
 PASS_RE = re.compile(r"^.{3,20}$")
 EMAIL_RE = re.compile(r"^[\S]+@[\S]+\.[\S]+$")
+def valid_username(username):
+	return USER_RE.match(username)
+
+def valid_passwrod(password):
+	return PASS_RE.match(password)
+
+def valid_email(email):
+	return EMAIL_RE.match(email)
+
+
 
 class UserAccount(BaseHandler):
 	def set_secure_cookie(self, name, val):
@@ -29,56 +40,41 @@ class UserAccount(BaseHandler):
 		uid = self.get_secure_cookie("user_id")
 		self.user = uid and User.by_id(int(uid))
 
-class UserSignup(UserAccount):
-	def valid_username(self, username):
-		return USER_RE.match(username)
-
-	def valid_passwrod(self, password):
-		return PASS_RE.match(password)
-
-	def valid_email(self, email):
-		return EMAIL_RE.match(email)
-
-	def write_form(self, user_error=False, pass_error=False, match_error=False, email_error=False,
-						username="", email="", error=""):
-		uerror=""
-		perror=""
-		merror=""
-		eerror=""
-		if user_error:
-			uerror=u"Nombre de usuario no válido"
-		if pass_error:
-			perror=u"Contraseña de usuario no válida"
-		if match_error:
-			merror=u"Las contraseñas no coinciden"
-		if email_error:
-			eerror=u"Dirección de correo no válida"
-		self.render("signup.html", 
-			user_error= uerror,
-			pass_error=perror,
-			match_error=merror,
-			email_error=eerror,
-			username=username,
-			email=email,
-			error=error)
-
+class UserAvatar(UserAccount):
 	def get(self):
-		self.write_form()
+		if self.user:
+			self.response.headers['Content-Type'] = 'image/jpg'
+			self.response.out.write(self.user.avatar)
+
+class UserSignup(UserAccount):
+	def get(self):
+		self.render("signup.html")
 
 	def post(self):
+		uerror = perror = merror = eerror = ""
 		username = self.request.get("username")
 		password = self.request.get("password")
 		verify = self.request.get("verify")
 		email = self.request.get("email")
-		uerror = not self.valid_username(username)
-		perror = not self.valid_passwrod(password)
-		verror = (cmp(password,verify) != 0)
-		eerror = not self.valid_email(email)
-		if (uerror or perror or verror or eerror):
-			self.write_form(uerror, perror, verror, eerror, username, email)
+		if not valid_username(username):
+			uerror=u"Nombre de usuario no válido"
+		if not valid_passwrod(password):
+			perror=u"Contraseña de usuario no válida"
+		if (cmp(password,verify) != 0):
+			merror=u"Las contraseñas no coinciden"
+		if not valid_email(email):
+			eerror=u"Dirección de correo no válida"
+		if (uerror or perror or merror or eerror):
+			self.render("signup.html", 
+				user_error= uerror,
+				pass_error=perror,
+				match_error=merror,
+				email_error=eerror,
+				username=username,
+				email=email)
 		else:
 			if User.by_username(username):
-				self.write_form(error=u"El usuario ya existe. Utiliza otro nombre.")
+				self.render("signup.html", error=u"El usuario ya existe. Utiliza otro nombre.")
 			else:
 				u = User.register(username, password, email)
 				u.put()
@@ -105,3 +101,61 @@ class UserLogout(UserAccount):
 	def get(self):
 		self.logout()
 		self.redirect("/login")
+
+class UserProfile(UserAccount):
+	def get(self, status=""):
+		if self.user:
+			if self.user.avatar:
+				avatar="/avatar.jpg"
+			else:
+				avatar="/img/doctor.jpg"
+			self.render("profile.html", 
+				username=self.user.username, 
+				email=self.user.email,
+				name=self.user.name,
+				surname=self.user.surname,
+				avatar=avatar,
+				status=status
+				)
+		else:
+			self.redirect("/login")
+	def post(self):
+		uerror = perror = merror = eerror = ""
+		username = self.request.get("username")
+		password = self.request.get("password")
+		verify = self.request.get("verify")
+		email = self.request.get("email")
+		name = self.request.get("name")
+		surname = self.request.get("surname")
+		if not valid_username(username):
+			uerror=u"Nombre de usuario no válido"
+		if not valid_passwrod(password):
+			perror=u"Contraseña de usuario no válida"
+		if (cmp(password,verify) != 0):
+			merror=u"Las contraseñas no coinciden"
+		if not valid_email(email):
+			eerror=u"Dirección de correo no válida"
+		if (uerror or perror or merror or eerror):
+			self.render("profile.html", 
+				user_error= uerror,
+				pass_error=perror,
+				match_error=merror,
+				email_error=eerror,
+				username=username,
+				email=email,
+				name=name,
+				surname=surname)
+		else:
+			if (username!=self.user.username) and User.by_username(username):
+				self.get(status=u"El nombre de usuario ya existe. Utiliza otro.")
+			else:
+				avatar = images.resize(self.request.get("avatar"), 150, 150)
+				u = User.register(username, password, email)
+				self.user.username = username
+				self.user.pwhash = u.pwhash
+				self.user.email = email
+				self.user.name = name
+				self.user.surname = surname
+				self.user.avatar = avatar
+				self.user.put()
+				self.get(status=u"Perfil actualizado correctamente.")

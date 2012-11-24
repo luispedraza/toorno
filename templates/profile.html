@@ -10,7 +10,7 @@
 
 
 <div id="toolbar">
-<div id="tb-user">{{user}}
+<div id="tb-user">{{username}}
 	<ul id="tb-menu">
 		<li><a href="/logout">Cerrar sesión</a></li>
 		<li><a href="/profile">Mis datos</a></li>
@@ -19,8 +19,13 @@
 </div>
 </div>
 
+<div class="card">
 
-<form method="post">
+	<div id="profile-control">
+		<img id="profile-avatar" src={{avatar}} />
+	</div>
+	<div id="profile-data">
+	<form method="post" enctype="multipart/form-data"fff>
 		<table>
 			<tr>
 				<td><label for="username">Usuario</label></td>
@@ -40,20 +45,25 @@
 				<td><span class="error">{{email_error}}</td>
 			</tr><tr>
 				<td><label for="name">Nombre</label></td>
-				<td><input id="name" name="name"></td>
+				<td><input id="name" name="name" value={{name}}></td>
 				<td><span class="error">{{name_error}}</span></td>
 			</tr><tr>
 				<td><label for="surname">Apellidos</label></td>
-				<td><input id="surname" name="surname"></td>
+				<td><input id="surname" name="surname" value={{surname}}></td>
 				<td><span class="error">{{surname_error}}</span></td>
 			</tr><tr>
-				<td></td><td><div class="error">{{error}}</div></td><td></td>
+				<td><label for="avatar">Avatar</label></td>
+				<td><input type="file" id="avatar" name="avatar"></td>
+				<td></td>
+			</tr><tr>
+				<td></td><td><div class="error">{{status}}</div></td><td></td>
 			</tr><tr>
 				<td></td><td><input type="submit" value="Actualizar"></td><td></td>
 			</tr>
 		</table>
 	</form>
-
+</div>
+</div>
 
 
 </body>
