@@ -1,0 +1,124 @@
+@import url(http://fonts.googleapis.com/css?family=Average+Sans);
+body {
+	width: 800px;
+	font-family: 'Average Sans', sans-serif;
+	font-size: 16px;
+}
+
+.card {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 5px solid rgba(0, 0, 0, 0.3);
+	box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 10px;
+	padding: 20px;
+	background-color: green;
+	color: white;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.error {
+	color: red;
+}
+
+body a {
+	color: orange;
+}
+
+/* Barra de herramientas */
+#toolbar {
+	background: green;
+	height: 40px;
+	color: white;
+}
+
+#tb-user {
+	float: right;
+	padding: 5px;
+	width: 300px;
+	text-align: right;
+	position: relative;
+	cursor: pointer;
+}
+
+#tb-menu {
+	text-align: right;
+	position: absolute;
+	right: 0;
+	background-color: white;
+	top: 10px;
+	border: 1px solid green;
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: opacity 1s;
+	-moz-transition: opacity 1s;
+	-webkit-transition: opacity 1s;
+	-o-transition: opacity 1s;
+}
+
+#tb-user:hover #tb-menu {
+	opacity: 1;
+	height: auto;
+}
+
+/* El calendario */
+
+#calendar {
+
+}
+
+#calendar th {
+	height: 50px;
+}
+
+#calendar td {
+	width: 120px;
+	height: 120px;
+	border: 1px solid orange;
+	text-align: right;
+	font-size: 2em;
+	color: gray;
+	position: relative;
+	vertical-align: top;
+	padding: 3px;
+}
+
+#calendar .toos {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.toos > div {
+	width: 60%;
+	opacity:0.2;
+	cursor: pointer;
+}
+
+#calendar .noday {
+	background-color: gray;
+}
+
+#calendar .too-1 {
+	background-color: orange;
+	margin: 2px;
+	height: 35px;
+}
+#calendar .too-2 {
+	background-color: magenta;
+	margin: 2px;
+	height: 35px;
+}
+#calendar .too-3 {
+	background-color: blue;	
+	margin: 2px;
+	height: 35px;
+}
+
+#calendar .selected {
+	opacity: 1;
+}
