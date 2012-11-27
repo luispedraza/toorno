@@ -5,10 +5,10 @@ import jinja2
 import os
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-styles_dir = os.path.join(os.path.dirname(__file__), 'styles')
-
+#styles_dir = os.path.join(os.path.dirname(__file__), 'styles')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 	autoescape = False)
+
 
 # Basic handler with common functions
 class BaseHandler(webapp2.RequestHandler):

@@ -22,6 +22,8 @@
 from too_base import *
 from too_users import *
 from too_calendar import *
+from too_ga import *
+from too_charts import *
 
 import logging
 
@@ -38,6 +40,21 @@ class Calendar(UserAccount):
 		else:
 			self.redirect("/login")
 
+class AdminConsole(UserAccount):
+	def get(self):
+		if self.user:
+			if self.user.username != "admin":
+				self.redirect("/login")
+			else:
+				self.render("admin.html")
+
+class Test(BaseHandler):
+	def get(self):
+		self.render("test.html")
+	def post(self):
+		self.render("test.html",
+			chart_fitness=draw_chart())
+
 app = webapp2.WSGIApplication([
 	('/', MainPage),
     ('/signup/?', UserSignup),
@@ -45,5 +62,7 @@ app = webapp2.WSGIApplication([
     ('/logout/?', UserLogout),
     ('/calendar/?', Calendar),
     ('/profile/?', UserProfile),
-    ('/avatar.jpg', UserAvatar)
+    ('/avatar.jpg', UserAvatar),
+    ('/admin/?', AdminConsole),
+    ('/test/?', Test)
 ], debug=True)
