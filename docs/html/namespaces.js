@@ -7,5 +7,6 @@ var namespaces =
     [ "too_charts", "namespacetoo__charts.html", null ],
     [ "too_database", "namespacetoo__database.html", null ],
     [ "too_ga", "namespacetoo__ga.html", null ],
+    [ "too_simulator", "namespacetoo__simulator.html", null ],
     [ "too_users", "namespacetoo__users.html", null ]
 ];

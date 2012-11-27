@@ -23,9 +23,7 @@ from too_base import *
 from too_users import *
 from too_calendar import *
 from too_ga import *
-from too_charts import *
-
-import logging
+from too_simulator import *
 
 class MainPage(BaseHandler):
 	def get(self):
@@ -34,7 +32,7 @@ class MainPage(BaseHandler):
 class Calendar(UserAccount):
 	def get(self):
 		if self.user:
-			calendar = get_calendar()
+			calendar = get_calendar_html(2012, 11, 3)
 			username = self.user.username
 			self.render("calendar.html", user=username, calendar=calendar)
 		else:
@@ -48,13 +46,6 @@ class AdminConsole(UserAccount):
 			else:
 				self.render("admin.html")
 
-class Test(BaseHandler):
-	def get(self):
-		self.render("test.html")
-	def post(self):
-		self.render("test.html",
-			chart_fitness=draw_chart())
-
 app = webapp2.WSGIApplication([
 	('/', MainPage),
     ('/signup/?', UserSignup),
@@ -64,5 +55,5 @@ app = webapp2.WSGIApplication([
     ('/profile/?', UserProfile),
     ('/avatar.jpg', UserAvatar),
     ('/admin/?', AdminConsole),
-    ('/test/?', Test)
+    ('/test/?', Simulator)
 ], debug=True)

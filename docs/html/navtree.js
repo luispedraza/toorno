@@ -2,26 +2,26 @@ var NAVTREE =
 [
   [ "toorno", "index.html", [
     [ "README", "md__r_e_a_d_m_e.html", null ],
-    [ "Packages", null, [
-      [ "Packages", "namespaces.html", "namespaces" ],
-      [ "Package Functions", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
+    [ "Paquetes", null, [
+      [ "Paquetes", "namespaces.html", "namespaces" ],
+      [ "Funciones del 'package'", "namespacemembers.html", [
+        [ "Todo", "namespacemembers.html", null ],
+        [ "Funciones", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ]
       ] ]
     ] ],
-    [ "Classes", null, [
-      [ "Class List", "annotated.html", "annotated" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
+    [ "Clases", null, [
+      [ "Lista de clases", "annotated.html", "annotated" ],
+      [ "Índice de clases", "classes.html", null ],
+      [ "Jerarquía de la clase", "hierarchy.html", "hierarchy" ],
+      [ "Miembros de las clases", "functions.html", [
+        [ "Todo", "functions.html", "functions_dup" ],
+        [ "Funciones", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
-    [ "Files", null, [
-      [ "File List", "files.html", "files" ]
+    [ "Archivos", null, [
+      [ "Lista de archivos", "files.html", "files" ]
     ] ]
   ] ]
 ];
@@ -30,11 +30,11 @@ var NAVTREEINDEX =
 [
 "____init_____8py.html",
 "classpygal_1_1view_1_1_polar_theta_view.html#ad0c54b61808865c9c664ffc04649c43e",
-"pyramid_8py.html"
+"serie_8py.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click en deshabilitar sincronización';
+var SYNCOFFMSG = 'click en habilitar sincronización';
 var navTreeSubIndices = new Array();
 
 function getData(varName)
