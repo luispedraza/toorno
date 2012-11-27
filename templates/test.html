@@ -46,10 +46,8 @@
 		</tr><tr>
 			<td>Todo listo: </td><td><input type="submit" value="Generar"></td>
 		</tr>
-		</table>		
+		</table>
 	</form>
-
-	<div id="calendar">{{calendar}}</div>
 
 </div>
 
@@ -57,6 +55,15 @@
 <div id="test-results">
 	<div id="chart-fitness" class="chart">
 		{{chart_fitness}}
+	</div>
+
+	<div id="calendars">
+		{% for c in calendars %}
+		<div class="calendar">
+			{{c}}
+		</div>
+		{% endfor %}
+
 	</div>
 </div>
 </div>

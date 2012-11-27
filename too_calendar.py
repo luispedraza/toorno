@@ -8,7 +8,7 @@ CAL = calendar.HTMLCalendar()
 days = ["noday", "mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
 ## Generación de HTML para un calendario
-def get_calendar_html(year, month, shifts):
+def get_calendar_html(year, month, shifts, prefs=[], schedule=[]):
 	# obtengo el html del calendario
 	cal_html = 	CAL.formatmonth(year, month)
 	# limpio el html:
@@ -16,6 +16,7 @@ def get_calendar_html(year, month, shifts):
 	# creamos el árbol dom
 	dom = minidom.parseString(cal_html)
 	days = dom.getElementsByTagName("td")
+	shift_id = 0	# utilizados si prefs y schedule
 	for day in days:
 		if day.getAttribute("class") != "noday":
 			day_id = "day-"+day.firstChild.nodeValue
@@ -25,12 +26,22 @@ def get_calendar_html(year, month, shifts):
 			day.appendChild(toos)
 			toos_list = [("too-"+str(i)) for i in range(1,shifts+1)]
 			for t in toos_list:
+				too_class = "too "+t
+				too_text = ""
+				if prefs:
+					if prefs[shift_id]:
+						too_class = too_class +" selected"
+				if schedule:
+					if schedule[shift_id]:
+						too_text = "X"
+				
 				too = dom.createElement("div")
 				too.setAttribute("id", day_id+"_" + t)
-				too.setAttribute("class", "too "+t)
-				txt = dom.createTextNode("")
+				too.setAttribute("class", too_class)
+				txt = dom.createTextNode(too_text)
 				too.appendChild(txt) 
 				toos.appendChild(too)
+				shift_id += 1
 	return dom.toprettyxml()
 
 

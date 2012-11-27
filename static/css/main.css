@@ -78,15 +78,15 @@ body a {
 
 /* El calendario */
 
-#calendar {
+.calendar {
 
 }
 
-#calendar th {
+.calendar th {
 	height: 50px;
 }
 
-#calendar td {
+.calendar td {
 	width: 120px;
 	height: 120px;
 	border: 1px solid orange;
@@ -98,7 +98,7 @@ body a {
 	padding: 3px;
 }
 
-#calendar .toos {
+.calendar .toos {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -111,28 +111,28 @@ body a {
 	cursor: pointer;
 }
 
-#calendar .noday {
+.calendar .noday {
 	background-color: gray;
 	opacity: .5;
 }
 
-#calendar .too-1 {
+.calendar .too-1 {
 	background-color: orange;
 	margin: 2px;
 	height: 35px;
 }
-#calendar .too-2 {
+.calendar .too-2 {
 	background-color: magenta;
 	margin: 2px;
 	height: 35px;
 }
-#calendar .too-3 {
+.calendar .too-3 {
 	background-color: blue;	
 	margin: 2px;
 	height: 35px;
 }
 
-#calendar .selected {
+.calendar .selected {
 	opacity: 1;
 }
 

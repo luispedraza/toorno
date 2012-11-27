@@ -126,6 +126,7 @@ class GeneticAlgorithm(object):
 		self.fitnessSum = [0]*npop			
 		self.fitnessBest = [0]*nmaxiter		# histórico de mejor fitness
 		self.fitnessWorst = [0]*nmaxiter	# histórico de peor fitness
+		self.id_best = 0
 		self.constraints = constraints or self.init_constraints()
 	def roulette(self):
 		nrand = random.random()*self.fitnessSum[-1]
@@ -174,6 +175,7 @@ class GeneticAlgorithm(object):
 		fitness_sum = 0
 		fitness_best = 0
 		fitness_worst = 0
+		id_best = 0
 		for i in range(self.npop):
 			self.population[i].evaluate(self.constraints)
 			self.fitness[i] = max(0, self.population[i].fitness)
@@ -181,12 +183,14 @@ class GeneticAlgorithm(object):
 			self.fitnessSum[i] = fitness_sum
 			if self.fitness[i] > fitness_best:
 				fitness_best = self.fitness[i]
+				id_best = i
 			if i==0:
 				fitness_worst = self.fitness[i]
 			elif self.fitness[i] < fitness_worst:
 				fitness_worst = self.fitness[i]
 		self.fitnessBest[self.niter] = fitness_best
 		self.fitnessWorst[self.niter] = fitness_worst
+		self.id_best = id_best
 		return self.fitness
 
 # ndays= 30
