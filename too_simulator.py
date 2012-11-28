@@ -28,18 +28,20 @@ class Simulator(BaseHandler):
 			npop=npop,
 			nmaxiter=nmaxiter)
 		ga.run()
+		logging.info("Tamaño de la población: %s" %ga.npop)
+		logging.info("Mejor individuo: %s" %ga.fitnessRanking[0][0])
 		# generación de resultados:
 		chart = draw_chart(type="line",
 			title="Simulation results",
 			labels=["Best", "Worst"],
 			ydata=[ga.fitnessBest, ga.fitnessWorst])	
-		calendars = [None]*ga.npop
-		for c in range(ga.npop):
+		calendars = [None]*ga.npeople
+		for c in range(ga.npeople):
 			calendars[c] = 	get_calendar_html(year=year,
 				month=month,
 				shifts=nshifts,
 				prefs=ga.constraints.chromosomes[c],
-				schedule=ga.population[ga.id_best].chromosomes[c])
+				schedule=ga.population[ga.fitnessRanking[0][0]].chromosomes[c])
 	
 		self.render("test.html",
 			chart_fitness=chart,

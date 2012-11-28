@@ -31,6 +31,9 @@ def get_calendar_html(year, month, shifts, prefs=[], schedule=[]):
 				if prefs:
 					if prefs[shift_id]:
 						too_class = too_class +" selected"
+					elif schedule:
+						if schedule[shift_id]:
+							too_class = too_class + " error"
 				if schedule:
 					if schedule[shift_id]:
 						too_text = "X"

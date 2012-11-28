@@ -22,9 +22,11 @@ DEFAULT_MAXITER = 20
 ALLELES = (False, True)
 
 ## Probabilidad de cruce por defecto
-P_C = 0.5
+P_C = 0.8
 ## Probabilidad de mutación por defecto
-P_M = 0.05	# mutation prob.
+P_M = 0.1	# mutation prob.
+## Opción elitista: los descendientes sustituyen a los padres cuando son mejores
+ELITISM = True
 
 
 ## Cada uno de los individuos del algoritmo genético
@@ -70,6 +72,8 @@ class Individual(object):
 					self.fitness -= 1
 				else:
 					self.fitness += 1
+		self.fitness = max(1, self.fitness)	# ha de ser positivo, no nulo
+		return self.fitness
 	## Función de fornicación.
 	# Cruza a un individuo con otro indicado como parámetro, con una cierta probabilidad
 	# @param couple Individuo con el cuál realizar el cruce
@@ -126,7 +130,7 @@ class GeneticAlgorithm(object):
 		self.fitnessSum = [0]*npop			
 		self.fitnessBest = [0]*nmaxiter		# histórico de mejor fitness
 		self.fitnessWorst = [0]*nmaxiter	# histórico de peor fitness
-		self.id_best = 0
+		self.fitnessRanking = [0]*npop
 		self.constraints = constraints or self.init_constraints()
 	def roulette(self):
 		nrand = random.random()*self.fitnessSum[-1]
@@ -135,20 +139,24 @@ class GeneticAlgorithm(object):
 				return i
 	def goal(self):
 		return self.niter >= self.nmaxiter
+	## Función principal de ejecución del algoritmo
 	def run(self):
 		newpop = [None]*self.npop
 		self.niter = 0
 		while not self.goal():
 			self.compute_fitness()
-			logging.info("*=============================*")
-			logging.info("# iter:  %s" %str(self.niter))
-			logging.info("  best:  %s" %str(self.fitnessBest[self.niter]))
-			logging.info("  worst: %s" %str(self.fitnessWorst[self.niter]))
 			# Cruce y mutación:
 			for i in range(0, self.npop, 2):
+				if ELITISM and i==0: # dejamos pasar a la mejor pareja
+					newpop[i] = self.population[self.fitnessRanking[0][0]]
+					newpop[i+1] = self.population[self.fitnessRanking[1][0]]
+					continue
+				# elección de dos candidatos
 				indi1 = self.population[self.roulette()]
 				indi2 = self.population[self.roulette()]
+				# cruce
 				indi1, indi2 = indi1.crossover(indi2)
+				# mutación	
 				indi1.mutate()
 				indi2.mutate()
 				newpop[i] = indi1
@@ -173,30 +181,21 @@ class GeneticAlgorithm(object):
 		return self.constraints
 	def compute_fitness(self):
 		fitness_sum = 0
-		fitness_best = 0
-		fitness_worst = 0
-		id_best = 0
-		for i in range(self.npop):
-			self.population[i].evaluate(self.constraints)
-			self.fitness[i] = max(0, self.population[i].fitness)
+		for i in range(self.npop):			
+			self.fitness[i] = self.population[i].evaluate(self.constraints)
+			self.fitnessRanking[i] = (i, self.fitness[i])
 			fitness_sum += self.fitness[i]
 			self.fitnessSum[i] = fitness_sum
-			if self.fitness[i] > fitness_best:
-				fitness_best = self.fitness[i]
-				id_best = i
-			if i==0:
-				fitness_worst = self.fitness[i]
-			elif self.fitness[i] < fitness_worst:
-				fitness_worst = self.fitness[i]
-		self.fitnessBest[self.niter] = fitness_best
-		self.fitnessWorst[self.niter] = fitness_worst
-		self.id_best = id_best
+		# construimos el ranking de individuos:
+		self.fitnessRanking.sort(key=lambda indi: -indi[1])
+		self.fitnessBest[self.niter] = self.fitnessRanking[0][1]
+		self.fitnessWorst[self.niter] = self.fitnessRanking[-1][1]
 		return self.fitness
 
-# ndays= 30
-# nshifts=1
-# npeople=10
-# npop=10
-# nmaxiter=50
-# ga = GeneticAlgorithm(ndays=ndays, nshifts=nshifts, npeople=npeople, npop=npop,nmaxiter=nmaxiter)
-# ga.run()
+ndays= 30
+nshifts=1
+npeople=10
+npop=20
+nmaxiter=50
+ga = GeneticAlgorithm(ndays=ndays, nshifts=nshifts, npeople=npeople, npop=npop,nmaxiter=nmaxiter)
+ga.run()
