@@ -22,7 +22,7 @@ DEFAULT_MAXITER = 20
 ALLELES = (False, True)
 
 ## Probabilidad de cruce por defecto
-P_C = 0.7
+P_C = 0.5
 ## Probabilidad de mutación por defecto
 P_M = 0.01	# mutation prob.
 ## Opción elitista: los descendientes sustituyen a los padres cuando son mejores

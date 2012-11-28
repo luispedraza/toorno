@@ -111,6 +111,11 @@ body a {
 	cursor: pointer;
 }
 
+.toos .error {
+	border: 3px dotted red;
+	opacity: .5;
+}
+
 .calendar .noday {
 	background-color: gray;
 	opacity: .5;
