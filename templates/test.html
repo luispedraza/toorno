@@ -61,11 +61,11 @@
 
 <div id="test-calendars">
 	<div id="control">
-		<div id="prev-cal" class="button">&leq;&leq; ant </div>
+		<div id="prev-cal" class="barrow">&larr;</div>
 		{% for c in calendars %}
-			<div class="button"> {{loop.index0}} </div>
+			<div class="bnumber"> {{loop.index0}} </div>
 		{% endfor %}
-		<div id="next-cal" class="button"> sig &geq;&geq;</div>
+		<div id="next-cal" class="barrow">&rarr;</div>
 	</div>
 	<div id="calendars">
 		{% for c in calendars %}

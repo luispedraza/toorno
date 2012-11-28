@@ -164,8 +164,8 @@ body a {
 #test-calendars #control {
 	display: none;
 }
-#test-calendars #control .button {
-	display: inline;
+#test-calendars #control .barrow, #test-calendars #control .bnumber{
+	display: inline-block;
 	background-color: orange;
 	color: white;
 	-webkit-border-radius: 5px;
@@ -174,5 +174,7 @@ body a {
 	margin-right: 5px;
 	padding: 5px;
 	cursor: pointer;
+	width: 20px;
+	text-align: center;
 }
 
