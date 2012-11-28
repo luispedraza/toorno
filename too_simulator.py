@@ -28,8 +28,6 @@ class Simulator(BaseHandler):
 			npop=npop,
 			nmaxiter=nmaxiter)
 		ga.run()
-		logging.info("Tamaño de la población: %s" %ga.npop)
-		logging.info("Mejor individuo: %s" %ga.fitness_ranking[0][0])
 		# generación de resultados:
 		chart = draw_chart(type="line",
 			title="Simulation results",

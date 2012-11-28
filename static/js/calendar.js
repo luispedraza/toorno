@@ -1,10 +1,9 @@
-window.addEventListener("load", init, false);
+window.addEventListener("load", initToos, false);
 
-function init() {
+function initToos() {
 	toos = document.getElementsByClassName("too");
 	console.log(toos);
 	for (i=0; i<toos.length; i++) {
-		console.log("tetas");
 		toos[i].addEventListener("click", tooClicked)
 	}
 }
@@ -18,19 +17,3 @@ function tooClicked() {
 	}	
 }
 
-
-// Funciones auxiliares
-function hasClass(ele,cls) {
-	return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
-}
- 
-function addClass(ele,cls) {
-	if (!hasClass(ele,cls)) ele.className += " "+cls;
-}
- 
-function removeClass(ele,cls) {
-	if (hasClass(ele,cls)) {
-    	var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
-		ele.className=ele.className.replace(reg,' ');
-	}
-}

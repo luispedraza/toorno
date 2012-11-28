@@ -78,20 +78,20 @@ body a {
 
 /* El calendario */
 
-.calendar {
-
+.calendar table{
+	width: 100%;
 }
 
 .calendar th {
-	height: 50px;
+
 }
 
 .calendar td {
-	width: 120px;
+	width: 5%;
 	height: 120px;
 	border: 1px solid orange;
 	text-align: right;
-	font-size: 2em;
+	font-size: 1em;
 	color: gray;
 	position: relative;
 	vertical-align: top;
@@ -105,8 +105,13 @@ body a {
 	width: 100%;
 }
 
-.toos > div {
-	width: 60%;
+.toos {
+	margin-top: 1.1em;
+}
+
+.toos .too {
+	margin: 2px;
+	height: 1em;
 	opacity:0.2;
 	cursor: pointer;
 }
@@ -123,25 +128,51 @@ body a {
 
 .calendar .too-1 {
 	background-color: orange;
-	margin: 2px;
-	height: 35px;
 }
 .calendar .too-2 {
 	background-color: magenta;
-	margin: 2px;
-	height: 35px;
 }
 .calendar .too-3 {
 	background-color: blue;	
-	margin: 2px;
-	height: 35px;
 }
 
 .calendar .selected {
 	opacity: 1;
 }
 
-/* gráficos: */
-.chart {
-	height: 600px;
+/* Pruebas: */
+#test-config {
+	width: 300px;
+	float: left;
 }
+#test-chart {
+	width: 500px;
+	height: 350px;
+	float: right;
+}
+#test-calendars {
+	clear: both;
+	margin-top: 20px;
+}
+
+#test-calendars #calendars .calendar {
+	display: none;
+}
+#test-calendars #calendars td {
+	height: 80px;
+}
+#test-calendars #control {
+	display: none;
+}
+#test-calendars #control .button {
+	display: inline;
+	background-color: orange;
+	color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-right: 5px;
+	padding: 5px;
+	cursor: pointer;
+}
+

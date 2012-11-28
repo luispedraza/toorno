@@ -3,13 +3,15 @@
 <head>
 	<title>Pruebas de optimización</title>
 	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<script type="text/javascript" src="/js/utils.js"></script>
+	<script type="text/javascript" src="/js/test.js"></script>
 </head>
 
 
 <body>
 <div id="test">
 <div id="test-config">
-	<h1>Configuración de la simulación</h1>
+	<h2>Configuración:</h2>
 	<form method="post">	
 		<table>
 		<tr><th colspan="2">Datos del problema:</th></tr>
@@ -40,9 +42,9 @@
 		<tr><th colspan="2">Parámetros de optimización:</th></tr>
 		<tr>
 		<tr>
-			<td># Individuos/Partículas</td><td><input type="number" name="npop" value="50" step="2"></td>
+			<td># Individuos/Partículas</td><td><input type="number" name="npop" value="10" step="2"></td>
 		</tr><tr>
-			<td># Máximo Iteraciones</td><td><input type="number" name="nmaxiter" value="100"></td>
+			<td># Máximo Iteraciones</td><td><input type="number" name="nmaxiter" value="600"></td>
 		</tr><tr>
 			<td>Todo listo: </td><td><input type="submit" value="Generar"></td>
 		</tr>
@@ -51,23 +53,29 @@
 
 </div>
 
-
-<div id="test-results">
+<div id="test-chart">
 	<div id="chart-fitness" class="chart">
 		{{chart_fitness}}
 	</div>
+</div>
 
+<div id="test-calendars">
+	<div id="control">
+		<div id="prev-cal" class="button">&leq;&leq; ant </div>
+		{% for c in calendars %}
+			<div class="button"> {{loop.index0}} </div>
+		{% endfor %}
+		<div id="next-cal" class="button"> sig &geq;&geq;</div>
+	</div>
 	<div id="calendars">
 		{% for c in calendars %}
 		<div class="calendar">
 			{{c}}
 		</div>
 		{% endfor %}
-
 	</div>
 </div>
+
 </div>
-
-
 </body>
 </html>

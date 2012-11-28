@@ -7,7 +7,7 @@ def draw_chart(type="bar", title="", labels=[], xdata=[], ydata=[]):
 	if type=="bar":
 		chart = pygal.Bar()
 	elif type=="line":
-		chart = pygal.Line()
+		chart = pygal.Line(show_dots=False)
 	chart.title = title
 	for i in range(len(labels)):
 		chart.add(labels[i], ydata[i])
